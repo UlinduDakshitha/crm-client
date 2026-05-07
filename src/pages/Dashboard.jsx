@@ -1,4 +1,4 @@
- import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import API from "../services/api";
 import Layout from "../components/Layout";
 
@@ -6,17 +6,17 @@ export default function Dashboard() {
   const [data, setData] = useState({});
 
   useEffect(() => {
+    const fetchDashboard = async () => {
+      try {
+        const res = await API.get("/dashboard");
+        setData(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
     fetchDashboard();
   }, []);
-
-  const fetchDashboard = async () => {
-    try {
-      const res = await API.get("/dashboard");
-      setData(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   const cards = [
     {
@@ -58,13 +58,9 @@ export default function Dashboard() {
               key={index}
               className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition"
             >
-              <h2 className="text-slate-500 text-sm mb-3">
-                {card.title}
-              </h2>
+              <h2 className="text-slate-500 text-sm mb-3">{card.title}</h2>
 
-              <p className="text-4xl font-bold text-slate-900">
-                {card.value}
-              </p>
+              <p className="text-4xl font-bold text-slate-900">{card.value}</p>
             </div>
           ))}
         </div>
