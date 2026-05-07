@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import API from "../services/api";
+import Layout from "../components/Layout";
 
 export default function Leads() {
   const [leads, setLeads] = useState([]);
@@ -13,6 +14,7 @@ export default function Leads() {
   }, []);
 
   return (
+    <Layout>
     <div className="p-8">
       <h1 className="text-3xl font-bold mb-8">Leads</h1>
 
@@ -32,5 +34,6 @@ export default function Leads() {
         ))}
       </div>
     </div>
+    </Layout>
   );
 }
