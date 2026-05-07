@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import API from "../services/api";
 import Layout from "../component/Layout";
 import {
@@ -85,25 +85,30 @@ export default function Leads() {
   const [noteAuthor, setNoteAuthor] = useState("");
   const [saving, setSaving] = useState(false);
 
-  const fetchLeads = async () => {
-    setLoading(true);
-    setError("");
-
-    try {
-      const res = await API.get("/leads");
-      const normalizedLeads = Array.isArray(res.data)
-        ? res.data.map(normalizeLead)
-        : [];
-      setLeads(normalizedLeads);
-    } catch (err) {
-      console.log(err);
-      setError("Unable to load leads right now.");
-    } finally {
-      setLoading(false);
-    }
-  };
+  const refreshRef = useRef(null);
 
   useEffect(() => {
+    const fetchLeads = async () => {
+      setLoading(true);
+      setError("");
+
+      try {
+        const res = await API.get("/leads");
+        const normalizedLeads = Array.isArray(res.data)
+          ? res.data.map(normalizeLead)
+          : [];
+        setLeads(normalizedLeads);
+      } catch (err) {
+        console.log(err);
+        setError("Unable to load leads right now.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    // expose refresh function to other handlers
+    refreshRef.current = fetchLeads;
+
     fetchLeads();
   }, []);
 
@@ -196,7 +201,7 @@ export default function Leads() {
 
     try {
       await API.put(`/leads/${lead._id}`, payload);
-      await fetchLeads();
+      await refreshRef.current?.();
     } catch (err) {
       console.log(err);
       setError("Could not update the lead status.");
@@ -214,7 +219,7 @@ export default function Leads() {
 
     try {
       await API.delete(`/leads/${lead._id}`);
-      await fetchLeads();
+      await refreshRef.current?.();
       if (selectedLead?._id === lead._id) {
         closeAllModals();
       }
@@ -254,7 +259,7 @@ export default function Leads() {
       setIsFormOpen(false);
       setSelectedLead(null);
       setForm(emptyLeadForm());
-      await fetchLeads();
+      await refreshRef.current?.();
     } catch (err) {
       console.log(err);
       setError("Could not save the lead.");
@@ -279,7 +284,7 @@ export default function Leads() {
       setNoteText("");
       setNoteAuthor("");
       setIsNoteOpen(false);
-      await fetchLeads();
+      await refreshRef.current?.();
     } catch (err) {
       console.log(err);
       setError("Could not add the note.");
