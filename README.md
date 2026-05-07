@@ -89,6 +89,9 @@ Protected routes check for token
 API requests automatically attach the token
 Leads and dashboard data are fetched from the backend
 
+Reflection
+Building this frontend improved my understanding of React component structure, state management, forms, API integration, and responsive UI design with Tailwind CSS.
+
 Known Limitations
 No dark mode yet
 No toast notifications yet
