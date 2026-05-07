@@ -19,7 +19,7 @@ export default function Login() {
       localStorage.setItem("token", res.data.token);
 
       navigate("/dashboard");
-    } catch (err) {
+    } catch {
       alert("Login failed");
     }
   };
@@ -30,26 +30,20 @@ export default function Login() {
         onSubmit={handleLogin}
         className="bg-white p-8 rounded-2xl shadow-lg w-96"
       >
-        <h1 className="text-3xl font-bold mb-6 text-center">
-          CRM Login
-        </h1>
+        <h1 className="text-3xl font-bold mb-6 text-center">CRM Login</h1>
 
         <input
           type="email"
           placeholder="Email"
           className="w-full border p-3 rounded-lg mb-4"
-          onChange={(e) =>
-            setForm({ ...form, email: e.target.value })
-          }
+          onChange={(e) => setForm({ ...form, email: e.target.value })}
         />
 
         <input
           type="password"
           placeholder="Password"
           className="w-full border p-3 rounded-lg mb-4"
-          onChange={(e) =>
-            setForm({ ...form, password: e.target.value })
-          }
+          onChange={(e) => setForm({ ...form, password: e.target.value })}
         />
 
         <button className="bg-black text-white w-full py-3 rounded-lg hover:bg-gray-800">
