@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import API from "../services/api";
-import Layout from "../components/Layout";
+import Layout from "../component/Layout";
 
 export default function Dashboard() {
   const [data, setData] = useState({});
