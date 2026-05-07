@@ -87,7 +87,7 @@ export default function Login() {
             onChange={(e) => setForm({ ...form, password: e.target.value })}
           />
 
-          <button className="w-full rounded-2xl bg-linear-to-r from-sky-400 to-cyan-300 px-4 py-3 font-semibold text-slate-950 transition hover:brightness-110 active:scale-[0.99]">
+          <button className="w-full rounded-2xl bg-sky-400 px-4 py-3 font-semibold text-slate-950 transition hover:brightness-110 active:scale-[0.99]">
             Login
           </button>
         </form>

@@ -84,7 +84,7 @@ export default function Dashboard() {
   return (
     <Layout>
       <div className="space-y-6">
-        <div className="rounded-[28px] bg-linear-to-r from-slate-900 to-slate-700 p-6 text-white shadow-lg">
+        <div className="rounded-[28px] bg-slate-900 p-6 text-white shadow-lg">
           <p className="text-sm uppercase tracking-[0.3em] text-slate-300">
             Dashboard Overview
           </p>
